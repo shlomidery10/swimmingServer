@@ -6,24 +6,37 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {console.log("connect to mongo")});
 
-var warmupSchema = new mongoose.Schema({
- trainingSet:[String]
+var WorkoutSchema = new mongoose.Schema({
+  trainerName:[string],
+  week:[Number],
+  goalOfTraining:[String],
+  date:[Date],
+  WorkoutParts:[[WorkoutPart]]
 });
-var Warmup = mongoose.model('warmup', warmupSchema);
+var Workout = mongoose.model('workout', WorkoutSchema);
 
-var majorExerciseSchema = new mongoose.Schema({
-  trainingSet:[String]
+var WorkoutPartSchema = new mongoose.Schema({
+  Name:[string],
+  goal:[String],
+  exercises:[[Exercise]]
+});
+var WorkoutPart = mongoose.model('workoutPart', WorkoutPartSchema);
+
+var exerciseSchema = new mongoose.Schema({
+  repetition:[Number],
+  distance:[Number],
+  description:[String],
+  ExerciseSets:[[ExerciseSet]]
+});
+var Exercise = mongoose.model('exercise', exerciseSchema);
+
+var exerciseSetSchema = new mongoose.Schema({
+  description:[String],
+  distance:[Number],
  });
- var MajorExercise = mongoose.model('majorExercise', majorExerciseSchema);
+var ExerciseSet = mongoose.model('exerciseSet', exerciseSetSchema);
 
- var releaseSchema = new mongoose.Schema({
-  trainingSet:[String]
- });
- var Release = mongoose.model('release', releaseSchema);
-
-
-
-var my_schemas = {'Warmup':Warmup,'MajorExercise':MajorExercise,'Release':Release};
+var my_schemas = {'Workout':Workout,'WorkoutPart':WorkoutPart,'Exercise':Exercise,'ExerciseSet':ExerciseSet};
 module.exports = my_schemas;
 
 
