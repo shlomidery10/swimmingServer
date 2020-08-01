@@ -6,84 +6,24 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {console.log("connect to mongo")});
 
-
-var commentSchema = new mongoose.Schema({
-  Title:String,
-  BodyOfTheComment:String,
-  Userid:String,
-  PostId:String,
-  CreateTime:String,
-  postRating:Number,
-  catgoryName:String,
-
+var warmupSchema = new mongoose.Schema({
+ trainingSet:[String]
 });
-var Comment = mongoose.model('Comment', commentSchema);
+var Warmup = mongoose.model('warmup', warmupSchema);
+
+var majorExerciseSchema = new mongoose.Schema({
+  trainingSet:[String]
+ });
+ var MajorExercise = mongoose.model('majorExercise', majorExerciseSchema);
+
+ var releaseSchema = new mongoose.Schema({
+  trainingSet:[String]
+ });
+ var Release = mongoose.model('release', releaseSchema);
 
 
 
-
-
-var PlaceSchema = new mongoose.Schema({
-  formatted_address:String,
-  Address:String,
-  AvgRating:Number,
-  NumOfPost:Number,
-  PostIdList:String,
-  lat:Number,
-  lng:Number,
-  id:String,
-  name:String,
-  place_id:String,
-  price_level:String,
-  rating:String,
-  types:[String],
-  lat:String,
-  lng:String,
-
-});
-var Place = mongoose.model('Place', PlaceSchema);
-
-var PostSchema = new mongoose.Schema({
-  Id:Number,
-  Title:String,
-  BodyOfThePost:String,
-  ImageUrl:String,
-  ImageName:String,
-  Userid:String,
-  Place:PlaceSchema,
-  Rating:Number,
-  CreateTime:String,
-  catgoryName:String,
-  PlaceName:String
-});
-var Post = mongoose.model('Post', PostSchema);
-
-var UserSchema = new mongoose.Schema({
-  UserName:String,
-  Id:String,
-  Email:String,
-  Password:String,
-  firstName:String,
-  lastname:String,
-  Phone:String,
-  Places: [[]],
-});
-var User = mongoose.model('User', UserSchema);
-
-var CountriesSchema = new mongoose.Schema({
-  name:String,
-  code:String
-});
-var Countries = mongoose.model('Countries', CountriesSchema);
-
-var RecommendedTripSchema = new mongoose.Schema({
-  tripName:String,
-  trip:[{}]
-});
-var RecommendedTrip = mongoose.model('RecommendedTrip', RecommendedTripSchema);
-
-
-var my_schemas = {'User' : User,'Countries':Countries,'RecommendedTrip':RecommendedTrip,'Comment':Comment, 'Post': Post,'Place':Place};
+var my_schemas = {'Warmup':Warmup,'MajorExercise':MajorExercise,'Release':Release};
 module.exports = my_schemas;
 
 
